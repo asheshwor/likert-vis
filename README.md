@@ -53,7 +53,7 @@ plot(myLikert, low.color="darkslategray4", neutral.color="gainsboro",
      panel.arrange = "h") +
   ggtitle("How has the following changed in the past 5 years?")
 ```
-![R plot](asheshwor.github.com/repository/Plots/Rplot01.png)
+![R plot](Plots/Rplot01.png)
 
 Grouping of responses
 ---------------
