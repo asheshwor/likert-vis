@@ -55,6 +55,13 @@ plot(myLikert, low.color="darkslategray4", neutral.color="gainsboro",
 ```
 ![R plot](Plots/Rplot01.png)
 
+For density plots.
+```{r fig.width=8, fig.height=16}
+plot(myLikert, type="density")
+```
+
+![R plot](Plots/Rplot02.png)
+
 Grouping of responses
 ---------------
 
