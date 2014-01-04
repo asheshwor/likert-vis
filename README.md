@@ -26,9 +26,10 @@ require(likert)
 Next step is to read the data and to process the data as factor.
 ```{r}
 dataFile <- "C:/Users/Lenovo/Dropbox/Napier/PhD/Data Entry/randomData.xlsx"
-myData <- read.xlsx(dataFile, sheetName = "Sheet1") #read excel sheet
-myData <- myData[,-1] #dropping first column
-myData <- data.frame(myData) #convert to data frame
+myData.full <- read.xlsx(dataFile, sheetName = "Sheet2") #read excel sheet
+#forcing NA
+myData.full[] <- lapply(myData.full, function(x){replace(x, x == "NA", NA)})
+myData <- myData.full[,c(-1,-2,-3)] #dropping first three columns
 names(myData) <- c("1. Hotness of summer", "2. Coldness of winter",
                    "3. Length of summer", "4. Length of winter",
                    "5. Monsoon rainfall", "7. Winter rainfall",
@@ -55,14 +56,37 @@ plot(myLikert, low.color="darkslategray4", neutral.color="gainsboro",
 ```
 ![R plot](Plots/Rplot01.png)
 
-For density plots.
+For density plots for individual responses.
 ```{r fig.width=8, fig.height=16}
 plot(myLikert, type="density")
 ```
-
 ![R plot](Plots/Rplot02.png)
+
+Density plot for all resposes in one graph.
+```{r fig.width=10, fig.height=5}
+plot(myLikert, type="density", facet=FALSE)
+```
+![R plot](Plots/Rplot03.png)
+
 
 Grouping of responses
 ---------------
 
-To be added...
+Grouping the responses according to gender.
+```{r fig.width=10, fig.height=7}
+myLikert.gen <- likert(myData, grouping=myData.full$Gender)
+plot(myLikert.gen, low.color="darkslategray4", neutral.color="gainsboro",
+     high.color="firebrick", ordered=FALSE,
+     panel.arrange = "v")
+```
+
+![R plot](Plots/Rplot04.png)
+
+Grouping the responses according to location.
+```{r fig.width=10, fig.height=16}
+myLikert.loc <- likert(myData, grouping=myData.full$Location)
+plot(myLikert.loc, low.color="darkslategray4", neutral.color="gainsboro",
+     high.color="firebrick", ordered=FALSE)
+```
+
+![R plot](Plots/Rplot05.png)
